@@ -10,8 +10,10 @@ body {
     height: 125px;
     background-color: #333;
     color: white;
-    font-family: fantasy;
     font-size: 25px;
+}
+#header-icon {
+    padding: 0 15px;
 }
 .content {
     display: flex;
@@ -35,13 +37,15 @@ body {
     width: 70%;
     height: 45px;
     border-radius: 8px;
-    border: 2px solid white;
+    border: 3px solid #ddd;
     padding: 8px;
+    box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+    background-color: #ddd;
     font-size: 20px;
 }
 #input-task:focus {
     outline: none;
-    border-color: gray;
+    border-color: rgb(153, 153, 153);
 }
 #add-task-button {
     padding: 0px 0px 0px 15px;
@@ -75,12 +79,14 @@ body {
     text-align: center;
     margin-right: 30px;
     right: 0;
+    cursor: pointer;
 }
 #task-name {
     padding: 0 10px;
 }
 .task-check {
     padding: 0 0 0 5px;
+    cursor: pointer;
 }
 #counter-container {
     display: flex;

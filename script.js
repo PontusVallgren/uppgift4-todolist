@@ -1,6 +1,9 @@
 const header = document.querySelector('.header');
 const main = document.querySelector('.content');
 const footer = document.querySelector('.footer');
+let taskActive = 0;
+let taskDone = 0;
+const todoList = [];
 
 // Header
 const headerText = document.createElement('h1');
@@ -8,6 +11,7 @@ headerText.setAttribute('id', 'header-text');
 headerText.textContent = 'ToDo List';
 
 const headerIcon = new Image(70, 70);
+headerIcon.setAttribute('id', 'header-icon')
 headerIcon.src = './Icons/header_icon.png';
 
 header.appendChild(headerIcon);
@@ -40,17 +44,14 @@ counterContainer.setAttribute('id', 'counter-container');
 main.appendChild(counterContainer);
 
 const activeTasks = document.createElement('p');
-activeTasks.textContent = 'Active: X';
+activeTasks.textContent = `Active: ${taskActive}`;
 const doneTasks = document.createElement('p');
-doneTasks.textContent = 'Finished: Y';
+doneTasks.textContent = `Finished: ${taskDone}`
 
 counterContainer.appendChild(activeTasks);
 counterContainer.appendChild(doneTasks);
 
-
-// Funktioner
-
-const todoList = [];
+// Task creator
 
 class Tasks {
     constructor(name) {
@@ -65,36 +66,68 @@ class Tasks {
     }
 }
 
+// Functions
+
 function createNewTask() {
-    if (inputTask.value === '') {
-        alert('Please enter a task');
-    } else {
-        const newTask = new Tasks(inputTask.value)
-        todoList.push(newTask);
+        if (inputTask.value === '') {
+            alert('Please enter a task');
+        } else {
+            const newTask = new Tasks(inputTask.value)
+            todoList.push(newTask);
+            taskActive++;
+            activeTasks.textContent = `Active: ${taskActive}`;
+    
+            const task = document.createElement('div');
+            task.setAttribute('class', 'tasks');
+            taskContainer.appendChild(task);
+    
+            const taskCheck = new Image(20, 20);
+            taskCheck.src = './Icons/active_task_icon.png';
+            taskCheck.setAttribute('class', 'task-check active')
+            taskCheck.setAttribute('id', 'active');
+    
+            const taskName = document.createElement('p');
+            taskName.setAttribute('id', 'task-name');
+            taskName.textContent = inputTask.value;
+    
+            const deleteTask = new Image(20, 20);
+            deleteTask.src = './Icons/trash_icon.png';
+            deleteTask.setAttribute('id', 'delete-task');
+    
+            task.appendChild(taskCheck);
+            task.appendChild(taskName);
+            task.appendChild(deleteTask);
 
-        const task = document.createElement('div');
-        task.setAttribute('class', 'tasks');
-        taskContainer.appendChild(task);
-
-        const taskCheck = new Image(20, 20);
-        taskCheck.src = './Icons/active_task_icon.png';
-        taskCheck.setAttribute('class', 'task-check')
-        taskCheck.setAttribute('id', 'active');
-
-        const taskName = document.createElement('p');
-        taskName.setAttribute('id', 'task-name');
-        taskName.textContent = inputTask.value;
-
-        const deleteTask = new Image(20, 20);
-        deleteTask.src = './Icons/trash_icon.png';
-        deleteTask.setAttribute('id', 'delete-task');
-
-        task.appendChild(taskCheck);
-        task.appendChild(taskName);
-        task.appendChild(deleteTask);
+            taskCheck.addEventListener('click', () => {
+                if(taskCheck.classList.contains('active')) {
+                    taskCheck.setAttribute('class', 'task-check done');
+                    taskCheck.src = './Icons/done_task_icon.png';
+                    taskDone++;
+                    taskActive--;
+                    doneTasks.textContent = `Finished: ${taskDone}`
+                    activeTasks.textContent = `Active: ${taskActive}`;
+                } else if (taskCheck.classList.contains('done')) {
+                    taskCheck.setAttribute('class', 'task-check active');
+                    taskCheck.src = './Icons/active_task_icon.png';
+                    taskDone--;
+                    taskActive++;
+                    doneTasks.textContent = `Finished: ${taskDone}`
+                    activeTasks.textContent = `Active: ${taskActive}`;
+                }
+                
+            });
+            deleteTask.addEventListener('click', (e) => {
+                e.currentTarget.parentNode.remove();
+                });
+            
+        }
     }
-}
+
+
+
+// Buttons
 
 AddButton.addEventListener('click', () => {
     createNewTask();
+    document.querySelector('#input-task').value = '';
 })
