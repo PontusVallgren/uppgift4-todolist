@@ -4,12 +4,14 @@ body {
 }
 .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     height: 125px;
     background-color: #333;
     color: white;
     font-family: fantasy;
+    font-size: 25px;
 }
 .content {
     display: flex;
@@ -36,20 +38,54 @@ body {
     border: 2px solid white;
     padding: 8px;
     font-size: 20px;
-    font-family: fantasy;
 }
 #input-task:focus {
     outline: none;
     border-color: gray;
 }
+#add-task-button {
+    padding: 0px 0px 0px 15px;
+    cursor: pointer;
+}
 #task-container {
     display: flex;
+    flex-direction: column;
     position: relative;
     padding: 30px 20px;
-    margin: 50px;
-    height: 45px;
+    margin: 50px 0 0 0;
+    height: 245px;
     width: 40%;
     background-color: rgb(141, 140, 140);
     border-radius: 8px;
     box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+    flex: 1;
+}
+.tasks {
+    display: flex;
+    margin: 5px;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ddd;
+    border-radius: 8px;
+    box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+}
+#delete-task {
+    position: absolute;
+    justify-content: flex-end;
+    text-align: center;
+    margin-right: 30px;
+    right: 0;
+}
+#task-name {
+    padding: 0 10px;
+}
+.task-check {
+    padding: 0 0 0 5px;
+}
+#counter-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 0px 20px;
+    width: 40%;
 }
