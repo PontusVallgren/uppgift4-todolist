@@ -125,7 +125,7 @@ function createNewTask() {
 
 
 
-// Buttons
+// Buttons **
 
 AddButton.addEventListener('click', () => {
     createNewTask();
