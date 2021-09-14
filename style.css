@@ -73,7 +73,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
 }
-#delete-task {
+.delete-task {
     position: absolute;
     justify-content: flex-end;
     text-align: center;

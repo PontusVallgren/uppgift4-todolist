@@ -84,7 +84,6 @@ function createNewTask() {
             const taskCheck = new Image(20, 20);
             taskCheck.src = './Icons/active_task_icon.png';
             taskCheck.setAttribute('class', 'task-check active')
-            taskCheck.setAttribute('id', 'active');
     
             const taskName = document.createElement('p');
             taskName.setAttribute('id', 'task-name');
@@ -92,22 +91,25 @@ function createNewTask() {
     
             const deleteTask = new Image(20, 20);
             deleteTask.src = './Icons/trash_icon.png';
-            deleteTask.setAttribute('id', 'delete-task');
+            deleteTask.setAttribute('class', 'delete-task active');
+            
     
             task.appendChild(taskCheck);
             task.appendChild(taskName);
             task.appendChild(deleteTask);
 
-            taskCheck.addEventListener('click', () => {
-                if(taskCheck.classList.contains('active')) {
+            taskCheck.addEventListener('click', (e) => {
+                if(e.currentTarget.classList.contains('active')) {
                     taskCheck.setAttribute('class', 'task-check done');
+                    deleteTask.setAttribute('class', 'delete-task done');
                     taskCheck.src = './Icons/done_task_icon.png';
                     taskDone++;
                     taskActive--;
                     doneTasks.textContent = `Finished: ${taskDone}`
                     activeTasks.textContent = `Active: ${taskActive}`;
-                } else if (taskCheck.classList.contains('done')) {
+                } else if (e.currentTarget.classList.contains('done')) {
                     taskCheck.setAttribute('class', 'task-check active');
+                    deleteTask.setAttribute('class', 'delete-task active');
                     taskCheck.src = './Icons/active_task_icon.png';
                     taskDone--;
                     taskActive++;
@@ -117,6 +119,13 @@ function createNewTask() {
                 
             });
             deleteTask.addEventListener('click', (e) => {
+                if(e.currentTarget.classList.contains('active')) {
+                    taskActive--;
+                    activeTasks.textContent = `Active: ${taskActive}`;
+                } else if(e.currentTarget.classList.contains('done')){
+                    taskDone--;
+                    doneTasks.textContent = `Finished: ${taskDone}`
+                }
                 e.currentTarget.parentNode.remove();
                 });
             
