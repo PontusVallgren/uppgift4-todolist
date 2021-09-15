@@ -13,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(-150deg, rgb(128, 126, 126), #333);
-    color: white;
+    color: #ddd;
     font-size: 25px;
 }
 #header-icon {
@@ -60,7 +60,9 @@ body {
     font-size: 2.5rem;
     color: #ddd;
 }
-
+#add-task-button:hover {
+    color: rgb(185, 185, 185);
+}
 
 .task-container {
     display: flex;
@@ -87,7 +89,8 @@ ul {
     color: rgb(56, 56, 56);
 }
 .tasks {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
     margin: 0px 0px 12px 0px;
     flex-direction: row;
     align-items: center;
@@ -95,18 +98,23 @@ ul {
     border-radius: 8px;
     box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
 }
+.tasks:hover {
+    background-color: #ddd;;
+    transform-style: preserve-3d;
+    transform: scale(1.02);
+    transition: ease-out 0.35;
+}
 .delete-task {
-    position: absolute;
-    justify-content: flex-end;
+    grid-column-start: 20;
     text-align: center;
-    margin-right: 30px;
-    right: 0;
     cursor: pointer;
 }
 #task-name {
+    grid-column: 2 / 18;
     padding: 0 10px;
 }
 .task-check {
+    grid-column-start: 1;
     padding: 0 0 0 5px;
     cursor: pointer;
 }

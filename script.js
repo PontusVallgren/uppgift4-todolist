@@ -10,11 +10,11 @@ const headerText = document.createElement('h1');
 headerText.setAttribute('id', 'header-text');
 headerText.textContent = 'ToDo List';
 
-const headerIcon = new Image(70, 70);
-headerIcon.setAttribute('id', 'header-icon')
-headerIcon.src = './Icons/header_icon.png';
+const headerIcon = document.createElement('i')
+headerIcon.setAttribute('class', 'fas fa-check-double');
+headerIcon.setAttribute('id', 'header-icon');
 
-header.appendChild(headerIcon);
+headerText.appendChild(headerIcon);
 header.appendChild(headerText);
 
 // Input-Container
@@ -105,10 +105,7 @@ function handleClickCheckDeleteName(e) {
 }
 
 clearAll.addEventListener('click', () => {
-    list.textContent = ' ';
-    taskActive = 0;
-    taskDone = 0;
-    todoList = [];
+    clearCounterTodoList();
     updateCounter();
 })
 
@@ -147,35 +144,40 @@ function updateCounter() {
     doneTasks.textContent = `Finished: ${taskDone}`;
 }
 
- function createNewTask(todo) {
-            const newTask = new Tasks(todo)
-            todoList.push(newTask);
-            taskActive++;
-            activeTasks.textContent = `Active: ${taskActive}`;
+function createNewTask(todo) {
+    const newTask = new Tasks(todo)
+    todoList.push(newTask);
+    taskActive++;
+    activeTasks.textContent = `Active: ${taskActive}`;
     
-            const task = document.createElement('li');
-            task.setAttribute('class', 'tasks active');
-            list.appendChild(task);
+    const task = document.createElement('li');
+    task.setAttribute('class', 'tasks active');
+    list.appendChild(task);
     
-            const taskCheck = new Image(20, 20);
-            taskCheck.src = './Icons/active_task_icon.png';
-            taskCheck.setAttribute('class', 'task-check active')
-            taskCheck.setAttribute('name', 'checkButton');
+    const taskCheck = new Image(20, 20);
+    taskCheck.src = './Icons/active_task_icon.png';
+    taskCheck.setAttribute('class', 'task-check active')
+    taskCheck.setAttribute('name', 'checkButton');
     
-            const taskName = document.createElement('p');
-            taskName.setAttribute('id', 'task-name');
-            taskName.textContent = todo;
+    const taskName = document.createElement('p');
+    taskName.setAttribute('id', 'task-name');
+    taskName.textContent = todo;
     
-            const deleteTask = new Image(20, 20);
-            deleteTask.src = './Icons/trash_icon.png';
-            deleteTask.setAttribute('class', 'delete-task active');
-            deleteTask.setAttribute('name', 'deleteButton');
+    const deleteTask = new Image(20, 20);
+    deleteTask.src = './Icons/trash_icon.png';
+    deleteTask.setAttribute('class', 'delete-task active');
+    deleteTask.setAttribute('name', 'deleteButton');
             
     
-            task.appendChild(taskCheck);
-            task.appendChild(taskName);
-            task.appendChild(deleteTask);
+    task.appendChild(taskCheck);
+    task.appendChild(taskName);
+    task.appendChild(deleteTask);
 
-            
-            
-        }
+}
+
+function clearCounterTodoList() {
+    list.textContent = ' ';
+    taskActive = 0;
+    taskDone = 0;
+    todoList = [];
+}
