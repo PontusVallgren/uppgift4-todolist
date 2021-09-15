@@ -8,7 +8,7 @@ let todoList = [];
 // Header
 const headerText = document.createElement('h1');
 headerText.setAttribute('id', 'header-text');
-headerText.textContent = 'ToDo List';
+headerText.textContent = 'Todo List';
 
 const headerIcon = document.createElement('i')
 headerIcon.setAttribute('class', 'fas fa-check-double');
@@ -78,7 +78,7 @@ class Tasks {
     }
 }
 
-// Buttons 
+// Events
 
 inputContainer.addEventListener('submit', (e) => {
     e.preventDefault();
