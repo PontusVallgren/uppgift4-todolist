@@ -1,9 +1,50 @@
 const header = document.querySelector('.header');
 const main = document.querySelector('.content');
 const footer = document.querySelector('.footer');
+let todoList = [];
+let todoListStorage = [];
 let taskActive = 0;
 let taskDone = 0;
-let todoList = [];
+
+
+class Tasks {
+    constructor(name) {
+        this.name = name;
+    }
+
+    setName(name) {
+        this.name = name;
+    }
+    getName() {
+        return this.name;
+    }
+}
+class UI {
+    static loadStorage() {
+        Storage.getTodolist();
+        if(todoListStorage.length > 0){
+            todoListStorage.forEach(item => createNewTask(item.name));
+        }
+        
+    }
+}
+
+class Storage {
+    static saveTodoList(data) {
+        localStorage.setItem('todoList', JSON.stringify(data));
+    }
+    static getTodolist() {
+        if(localStorage.length > 0) {
+            todoListStorage = JSON.parse(localStorage.getItem('todoList'));
+        }
+        
+    }
+}
+
+
+
+
+// CREATING DOM
 
 // Header
 const headerText = document.createElement('h1');
@@ -63,27 +104,14 @@ doneTasks.textContent = `Finished: ${taskDone}`
 counterContainer.appendChild(activeTasks);
 counterContainer.appendChild(doneTasks);
 
-// Task creator
-
-class Tasks {
-    constructor(name) {
-        this.name = name;
-    }
-
-    setName(name) {
-        this.name = name;
-    }
-    getName() {
-        return this.name;
-    }
-}
-
 // Events
+
+UI.loadStorage();
 
 inputContainer.addEventListener('submit', (e) => {
     e.preventDefault();
     if(inputTask.value != '') {
-        createNewTask(inputTask.value);   
+        createNewTask(inputTask.value);  
     }
     if (inputTask.value == '') {
         alert('Enter a task');
@@ -95,21 +123,22 @@ list.addEventListener('click', (e) => {
     handleClickCheckDeleteName(e);
 })
 
-function handleClickCheckDeleteName(e) {
-    if (e.target.name == 'checkButton') {
-        checkTodo(e)
-    }
-    if (e.target.name == 'deleteButton') {
-        deleteTodo(e); 
-    }
-}
-
 clearAll.addEventListener('click', () => {
     clearCounterTodoList();
     updateCounter();
 })
 
 // Functions
+
+function handleClickCheckDeleteName(e) {
+    if (e.target.name == 'checkButton') {
+        checkTodo(e)
+    }
+    if (e.target.name == 'deleteButton') {
+        deleteTodo(e); 
+        deleteTodoFromStorage(e);
+    }
+}
 
 function checkTodo(e) {
     let listNode = e.target.parentNode;
@@ -139,6 +168,19 @@ function deleteTodo(e) {
     updateCounter();
 }
 
+function deleteTodoFromStorage(e) {
+    let taskName = e.target.previousSibling;
+    console.log(taskName.textContent);
+    for (let i = 0; i < todoList.length; i++) {
+        if(taskName.textContent == todoList[i].name) {
+            todoList.splice(i, 1);
+            todoListStorage.splice(i, 1);
+            Storage.saveTodoList(todoList);
+            
+        }
+    }
+}
+
 function updateCounter() {
     activeTasks.textContent = `Active: ${taskActive}`;
     doneTasks.textContent = `Finished: ${taskDone}`;
@@ -147,6 +189,7 @@ function updateCounter() {
 function createNewTask(todo) {
     const newTask = new Tasks(todo)
     todoList.push(newTask);
+    Storage.saveTodoList(todoList);
     taskActive++;
     activeTasks.textContent = `Active: ${taskActive}`;
     
@@ -172,7 +215,7 @@ function createNewTask(todo) {
     task.appendChild(taskCheck);
     task.appendChild(taskName);
     task.appendChild(deleteTask);
-
+     
 }
 
 function clearCounterTodoList() {
@@ -180,4 +223,5 @@ function clearCounterTodoList() {
     taskActive = 0;
     taskDone = 0;
     todoList = [];
+    localStorage.clear();
 }
