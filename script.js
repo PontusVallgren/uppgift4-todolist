@@ -2,7 +2,6 @@ const header = document.querySelector('.header');
 const main = document.querySelector('.content');
 const footer = document.querySelector('.footer');
 let todoList = [];
-let todoListStorage = [];
 let taskActive = 0;
 let taskDone = 0;
 
@@ -22,8 +21,8 @@ class Tasks {
 class UI {
     static loadStorage() {
         Storage.getTodolist();
-        if(todoListStorage.length > 0){
-            todoListStorage.forEach(item => createNewTask(item.name));
+        if(todoList.length > 0){
+            todoList.forEach(item => createNewTask(item.name));
         }
         
     }
@@ -34,8 +33,8 @@ class Storage {
         localStorage.setItem('todoList', JSON.stringify(data));
     }
     static getTodolist() {
-        if(localStorage.length > 0) {
-            todoListStorage = JSON.parse(localStorage.getItem('todoList'));
+        if (localStorage.length > 0) {
+            todoList = [...JSON.parse(localStorage.getItem('todoList'))];
         }
         
     }
@@ -110,8 +109,9 @@ UI.loadStorage();
 
 inputContainer.addEventListener('submit', (e) => {
     e.preventDefault();
-    if(inputTask.value != '') {
-        createNewTask(inputTask.value);  
+    if (inputTask.value != '') {
+        createNewTask(inputTask.value); 
+        addTodoList(inputTask.value); 
     }
     if (inputTask.value == '') {
         alert('Enter a task');
@@ -185,11 +185,14 @@ function updateCounter() {
     activeTasks.textContent = `Active: ${taskActive}`;
     doneTasks.textContent = `Finished: ${taskDone}`;
 }
-
-function createNewTask(todo) {
+function addTodoList(todo) {
     const newTask = new Tasks(todo)
     todoList.push(newTask);
     Storage.saveTodoList(todoList);
+}
+
+function createNewTask(todo) {
+
     taskActive++;
     activeTasks.textContent = `Active: ${taskActive}`;
     
