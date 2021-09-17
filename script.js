@@ -170,11 +170,9 @@ function deleteTodo(e) {
 
 function deleteTodoFromStorage(e) {
     let taskName = e.target.previousSibling;
-    console.log(taskName.textContent);
     for (let i = 0; i < todoList.length; i++) {
         if(taskName.textContent == todoList[i].name) {
             todoList.splice(i, 1);
-            todoListStorage.splice(i, 1);
             Storage.saveTodoList(todoList);
             
         }
