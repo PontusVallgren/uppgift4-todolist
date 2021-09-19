@@ -58,6 +58,7 @@ main.appendChild(inputContainer);
 
 let inputTask = document.createElement("input");
 inputTask.setAttribute("id", "input-task");
+inputTask.setAttribute("required", "required");
 inputTask.setAttribute("type", "text");
 inputTask.setAttribute("placeholder", "Enter a task");
 inputContainer.appendChild(inputTask);
@@ -105,9 +106,6 @@ inputContainer.addEventListener("submit", (e) => {
   if (inputTask.value != "") {
     createNewTask(inputTask.value);
     addTodoList(inputTask.value);
-  }
-  if (inputTask.value == "") {
-    alert("Enter a task");
   }
   inputTask.value = "";
 });
