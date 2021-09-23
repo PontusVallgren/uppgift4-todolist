@@ -17,14 +17,6 @@ class Tasks {
     return this.name;
   }
 }
-class UI {
-  static loadStorage() {
-    Storage.getTodolist();
-    if (todoList.length > 0) {
-      todoList.forEach((item) => createNewTask(item.name));
-    }
-  }
-}
 
 class Storage {
   static saveTodoList(data) {
@@ -33,6 +25,12 @@ class Storage {
   static getTodolist() {
     if (localStorage.length > 0) {
       todoList = [...JSON.parse(localStorage.getItem("todoList"))];
+    }
+  }
+  static load() {
+    Storage.getTodolist();
+    if (todoList.length > 0) {
+      todoList.forEach((item) => createNewTask(item.name));
     }
   }
 }
@@ -99,7 +97,7 @@ counterContainer.appendChild(doneTasks);
 
 // Events
 
-UI.loadStorage();
+Storage.load();
 
 inputContainer.addEventListener("submit", (e) => {
   e.preventDefault();
