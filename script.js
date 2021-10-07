@@ -210,3 +210,17 @@ function clearCounterTodoList() {
   todoList = [];
   localStorage.clear();
 }
+
+// Navbar...
+
+const stylePontus = document.querySelector("#stylePontus");
+const styleChrister = document.querySelector("#styleChrister");
+
+stylePontus.addEventListener(
+  "click",
+  () => (document.querySelector("#style").href = "style.css")
+);
+styleChrister.addEventListener(
+  "click",
+  () => (document.querySelector("#style").href = "style2.css")
+);

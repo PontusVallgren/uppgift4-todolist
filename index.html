@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Todo List</title>
 <link rel='shortcut icon' href='./Icons/check-double-solid.svg'>
-<link rel='stylesheet' href='style.css'>
+<link id="style" rel='stylesheet' href='style.css'>
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -12,6 +12,15 @@
 </head>
 <body>
 <div class='header'></div>
+ <div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Select Style</button>
+    <div class="dropdown-content">
+      <a id="stylePontus" href="#">Pontus Style</a>
+      <a id="styleChrister" href="#">Christer Style</a>
+    </div>
+  </div> 
+</div>
 <div class='content'></div>
 <div class='footer'>
     <p>Copyright © 2021 PontusVallgren</p>
