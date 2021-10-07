@@ -152,6 +152,8 @@ function deleteTodo(e) {
   } else if (listNode.classList.contains("done")) {
     taskDone--;
   }
+
+  listNode.classList.add("delete-fall-out");
   listNode.remove();
   updateCounter();
 }

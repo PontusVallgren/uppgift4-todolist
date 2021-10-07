@@ -4,6 +4,30 @@ html {
   background-color: #ddd;
   font-family: "Roboto", sans-serif;
 }
+@keyframes in-from-left {
+  0% {
+    transform: translate(-200%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes in-from-right {
+  0% {
+    transform: translate(200%, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes in-from-bottom {
+  0% {
+    transform: translate(0, 1200%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
 body {
   margin: 0 0 75pontupx;
 }
@@ -94,6 +118,7 @@ body {
   align-items: center;
   border-radius: 8px;
   box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+  animation: in-from-right 2s;
 }
 #input-task {
   width: 100%;
@@ -130,6 +155,7 @@ body {
   background-color: rgb(141, 140, 140);
   border-radius: 8px;
   box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+  animation: in-from-left 2s;
 }
 ul {
   padding: 0;
@@ -153,11 +179,35 @@ ul {
   background-color: #ddd;
   border-radius: 8px;
   box-shadow: 0 15px 30px rgb(0, 0, 0, 0.3);
+  transform: scale(1);
+  transition: ease-in 0.35s;
+  animation: task-enter 0.5s;
+  transition: ease-out 0.3s;
 }
-.tasks:hover {
+@keyframes task-enter {
+  0% {
+    transform: translate(0, -100%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.tasks.active:hover {
   background-color: #ddd;
   transform-style: preserve-3d;
   transform: scale(1.02);
+  transition: ease-in 0.35s;
+}
+.tasks.done:hover {
+  background-color: rgba(221, 221, 221, 0.13);
+  transform-style: preserve-3d;
+  transform: scale(1.02);
+  transition: ease-out 0.35s;
+}
+.tasks.done {
+  background-color: rgba(221, 221, 221, 0.055);
+  transition: background-color 1s;
+  transform: scale(1);
   transition: ease-out 0.35s;
 }
 .delete-task {
@@ -180,6 +230,7 @@ ul {
   position: relative;
   padding: 0px 20px;
   width: 40%;
+  animation: in-from-bottom 2s;
 }
 .footer {
   display: flex;
